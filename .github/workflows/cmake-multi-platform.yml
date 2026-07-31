@@ -47,6 +47,18 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: List repository files (debug)
+      # Temporary debug step to show where CMakeLists.txt (if any) is located.
+      # Remove this step after we adjust the workflow to point to the correct source directory or add a top-level CMakeLists.txt.
+      run: |
+        echo "Repository root: $GITHUB_WORKSPACE"
+        echo
+        echo "Top-level files and dirs:"
+        ls -la "${{ github.workspace }}"
+        echo
+        echo "Recursive listing (first 500 lines):"
+        ls -R "${{ github.workspace }}" | sed -n '1,500p'
+
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
       id: strings
