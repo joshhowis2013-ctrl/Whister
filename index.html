@@ -305,7 +305,64 @@
             <p>&copy; 2026 Whister Software. All rights reserved.</p>
         </div>
     </footer>
+<style>
+    /* ==========================================================================
+       FORCED OVERRIDE: SLIDER POSITION FIX
+       ========================================================================== */
+    .slider-section {
+        position: relative !important;
+        max-width: 900px !important;
+        margin: 80px auto !important;
+        width: 100% !important;
+        display: block !important;
+    }
+    .slider-viewport {
+        position: relative !important;
+        min-height: 400px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+    /* Forces elements out of a stacked paragraph flow into individual slides */
+    .browser-slide {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 100% !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        transition: opacity 0.4s ease-in-out !important;
+    }
+    /* Only displays the active panel element frame */
+    .browser-slide.active-slide {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+    .slide-greeting { font-size: 3.2rem !important; font-weight: 300 !important; color: #ffffff !important; margin: 0 0 10px 0 !important; }
+    .slide-time { font-size: 0.95rem !important; color: #4b5563 !important; letter-spacing: 0.05em !important; margin-bottom: 40px !important; }
+    .slide-search-wrapper { width: 100% !important; max-width: 460px !important; margin-bottom: 40px !important; }
+    .slide-search-mock { width: 100% !important; background: transparent !important; border: 1px solid rgba(86, 108, 255, 0.4) !important; border-radius: 50px !important; padding: 14px 24px !important; color: #94a3b8 !important; text-align: left !important; }
+    .slide-caption-text { font-size: 1.25rem !important; color: #94a3b8 !important; font-style: italic !important; margin: 0 !important; line-height: 1.6 !important; }
+    .slide-weather-pill { background: rgba(19, 25, 38, 0.6) !important; border: 1px solid rgba(255, 255, 255, 0.05) !important; border-radius: 12px !important; padding: 16px 24px !important; display: inline-flex !important; align-items: center !important; gap: 16px !important; backdrop-filter: blur(10px) !important; }
+    
+    /* ==========================================================================
+       FORCED OVERRIDE: CLEAN ACCORDION FAQs FIX
+       ========================================================================== */
+    .faq-container { width: 100% !important; max-width: 850px !important; margin: 80px auto !important; display: block !important; }
+    .faq-list { display: flex !important; flex-direction: column !important; gap: 18px !important; }
+    .faq-list details { background-color: #131926 !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; border-radius: 12px !important; overflow: hidden !important; width: 100% !important; display: block !important; }
+    .faq-list summary { padding: 24px !important; font-size: 1.1rem !important; font-weight: 600 !important; color: #ffffff !important; cursor: pointer !important; user-select: none !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
+    .faq-answer { border-top: 1px solid rgba(255, 255, 255, 0.05) !important; background-color: rgba(0, 0, 0, 0.1) !important; }
+    .faq-answer p { padding: 24px !important; color: #94a3b8 !important; line-height: 1.65 !important; font-size: 0.98rem !important; text-align: left !important; margin: 0 !important; }
+</style>
 
     <script src="script.js"></script>
+    
 </body>
 </html>
