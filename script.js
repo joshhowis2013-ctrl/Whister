@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const lowPlatform = platform.toLowerCase();
 
     const targets = {
-        win: { text: "For Windows 10 or 11", link: "#win-file-link", card: "card-windows" },
+        win: { text: "For Windows 10 or 11", link: "#https://github.com/joshhowis2013-ctrl/Whister/releases/download/NEW/WhisterGUIInstaller.exe", card: "card-windows" },
         mac: { text: "For macOS 11 or later", link: "#mac-file-link", card: "card-macos" },
         lin: { text: "For Linux (64-bit)", link: "#linux-file-link", card: "card-linux" }
     };
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================================================
-// 2. SMART BANGS SEARCH ENGINE ROUTER (FIXED)
+// 2. SMART BANGS SEARCH ENGINE ROUTER
 // ==========================================================================
 function performSearch() {
     const searchInput = document.getElementById('browser-search-input');
@@ -50,7 +50,6 @@ function performSearch() {
     const firstTerm = terms[0].toLowerCase();
     const queryContent = encodeURIComponent(terms.slice(1).join(' '));
 
-    // FIX: Added the missing '$' symbols and appropriate search URL query formatting
     const bangMap = {
         '!yt': `https://youtube.com{queryContent}`,
         '!w': `https://wikipedia.org{queryContent}`,
@@ -87,3 +86,48 @@ function insertBang(bangText) {
         searchInput.focus();
     }
 }
+
+// ==========================================================================
+// 3. AUTOMATED BROWSER SLIDER INTERACTIVE LOGIC (PASTE NEW CODE HERE)
+// ==========================================================================
+let currentSlideIndex = 0;
+let slideInterval;
+
+function switchSlide(index) {
+    const slides = document.querySelectorAll('.browser-slide');
+    const dots = document.querySelectorAll('.dot-indicator');
+    
+    if (slides.length === 0 || dots.length === 0) return;
+
+    currentSlideIndex = index;
+
+    slides.forEach(slide => slide.classList.remove('active-slide'));
+    dots.forEach(dot => dot.classList.remove('active-dot'));
+
+    slides[index].classList.add('active-slide');
+    dots[index].classList.add('active-dot');
+}
+
+function startSlideShow() {
+    const slides = document.querySelectorAll('.browser-slide');
+    if (slides.length === 0) return;
+
+    clearInterval(slideInterval);
+
+    slideInterval = setInterval(() => {
+        let nextIndex = currentSlideIndex + 1;
+        if (nextIndex >= slides.length) {
+            nextIndex = 0; 
+        }
+        switchSlide(nextIndex);
+    }, 5000); // 5 seconds duration
+}
+
+function manualSwitch(index) {
+    switchSlide(index);
+    startSlideShow(); 
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    startSlideShow();
+});
