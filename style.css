@@ -274,6 +274,40 @@ body {
     font-weight: 500;
 }
 
+.beta-section {
+    background-color: rgba(23, 225, 252, 0.15);
+    border: 1px solid rgba(29, 55, 221, 0.3);
+    color: #afc6d3;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 24px;
+}
+
+
+.beta-info {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+.beta-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.beta-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-surface-light);
+    border-radius: 12px;
+    padding: 20px;
+    flex: 1 1 calc(33.333% - 20px);
+    min-width: 200px;
+    text-align: center;
+}
 /* ==========================================================================
    4. BANGS INTERACTIVE SHORTCUT ENGINE COMPONENT
    ========================================================================== */
@@ -977,4 +1011,5 @@ body {
 
 .dot-indicator.active-dot {
     background-color: #566cff;
+}
 }
