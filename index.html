@@ -284,23 +284,85 @@
         </div>
     </section>
 
-        <!-- METRIC USAGE DATA STRIP OVERVIEW -->
-    <section class="section-container stats-bg" id="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">152</div>
-                <div class="stat-label">Chromium Version</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">2.4x</div>
-                <div class="stat-label">Faster Page Loading</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">0.0%</div>
-                <div class="stat-label">Data Monitored or Sold</div>
-            </div>
+        
+  <!-- METRIC USAGE DATA STRIP OVERVIEW -->
+<section class="section-container stats-bg" id="stats">
+    <div class="stats-grid">
+        <div class="stat-item">
+            <!-- data-target holds the end number. data-suffix holds formatting symbols -->
+            <div class="stat-number" id="stat-chromium" data-target="152">0</div>
+            <div class="stat-label">Chromium Version</div>
         </div>
-    </section>
+        <div class="stat-item">
+            <div class="stat-number" id="stat-speed" data-target="2.4" data-suffix="x">0x</div>
+            <div class="stat-label">Faster Page Loading</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="stat-privacy" data-target="0.0" data-suffix="%">0.0%</div>
+            <div class="stat-label">Data Monitored or Sold</div>
+        </div>
+    </div>
+</section>
+
+
+      <script>
+    // Global flag prevents the animation from running multiple times
+    var hasAnimatedStats = false;
+
+    // Linear interpolation math to count numbers up smoothly over time
+    function animateValue(obj, start, end, duration, decimalPlaces) {
+        var startTime = null;
+        function step(currentTime) {
+            if (!startTime) startTime = currentTime;
+            var progress = Math.min((currentTime - startTime) / duration, 1);
+            var currentVal = progress * (end - start) + start;
+            var suffix = obj.getAttribute('data-suffix') || '';
+            
+            obj.innerHTML = currentVal.toFixed(decimalPlaces) + suffix;
+            
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        }
+        window.requestAnimationFrame(step);
+    }
+
+    // Finds each tracker element and feeds them their respective target metrics
+    function triggerStatsCounter() {
+        if (hasAnimatedStats) return;
+        hasAnimatedStats = true;
+
+        var chromEl = document.getElementById('stat-chromium');
+        var speedEl = document.getElementById('stat-speed');
+        var privEl = document.getElementById('stat-privacy');
+
+        if (chromEl) animateValue(chromEl, 0, parseFloat(chromEl.getAttribute('data-target')), 1500, 0);
+        if (speedEl) animateValue(speedEl, 0.0, parseFloat(speedEl.getAttribute('data-target')), 1500, 1);
+        if (privEl)  animateValue(privEl, 0.0, parseFloat(privEl.getAttribute('data-target')), 1500, 1);
+    }
+
+    // FEATURE DETECTION: Use modern IntersectionObserver if available. 
+    // Fallback: Instantly apply the numbers for Internet Explorer without breaking the JS engine.
+    if (typeof window.IntersectionObserver !== 'undefined') {
+        var statsSection = document.getElementById('stats');
+        var observer = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting) {
+                triggerStatsCounter();
+                observer.disconnect(); // Clears the listener once triggered
+            }
+        }, { threshold: 0.1 });
+
+        if (statsSection) observer.observe(statsSection);
+    } else {
+        // IE Fallback Action
+        var cE = document.getElementById('stat-chromium');
+        var sE = document.getElementById('stat-speed');
+        var pE = document.getElementById('stat-privacy');
+        if (cE) cE.innerHTML = cE.getAttribute('data-target');
+        if (sE) sE.innerHTML = sE.getAttribute('data-target') + (sE.getAttribute('data-suffix') || '');
+        if (pE) pE.innerHTML = pE.getAttribute('data-target') + (pE.getAttribute('data-suffix') || '');
+    }
+</script>
 
     <!-- USER FEEDBACK / REVIEW LAYOUT PANEL -->
     <section class="section-container">
@@ -315,6 +377,8 @@
             </div>
         </div>
     </section>
+
+     
 
     <!-- CORE FEATURES GRID -->
     <section class="section-container" id="features">
